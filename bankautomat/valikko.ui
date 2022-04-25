@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Valikko</class>
+ <widget class="QDialog" name="Valikko">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Group IV Banking Systems Incorporated</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QTextEdit" name="textEditNaytaAsiakasTiedot">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>260</y>
+     <width>921</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(246, 245, 244, 20);
+color: rgb(94, 92, 100);
+font: 700 11pt &quot;FreeMono&quot;;
+letter-spacing: 2px;
+text-transform: uppercase;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnKirjauduUlos">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>630</y>
+     <width>250</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background-color: rgb(255, 120, 0);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Kirjaudu ulos</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelBackgroundImage">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>768</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="bank_automat_resources.qrc">:/images/bank_automat_files/main_background_image_1.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelMainTitle">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
+     <width>940</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>17</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Tervetuloa omaan pankkiin,</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelMainTitleNimi">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>20</y>
+     <width>521</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>17</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>100</y>
+     <width>921</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btnTapahtumat">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+padding: 20 0;
+}</string>
+      </property>
+      <property name="text">
+       <string>Tilitapahtumat</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnSaldo">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+padding: 20 0;
+}</string>
+      </property>
+      <property name="text">
+       <string>Näytä saldo</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnSiirto">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+padding: 20 0;
+}</string>
+      </property>
+      <property name="text">
+       <string>Siirto</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnNosto">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+padding: 20 0;
+}</string>
+      </property>
+      <property name="text">
+       <string>Nosto</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTextEdit" name="textEditShowCustomerInformation">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>630</y>
+     <width>281</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(246, 245, 244, 0);
+border-style: none;
+color: rgb(94, 92, 100);</string>
+   </property>
+  </widget>
+  <zorder>labelBackgroundImage</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>textEditShowCustomerInformation</zorder>
+  <zorder>textEditNaytaAsiakasTiedot</zorder>
+  <zorder>btnKirjauduUlos</zorder>
+  <zorder>labelMainTitle</zorder>
+  <zorder>labelMainTitleNimi</zorder>
+ </widget>
+ <resources>
+  <include location="bank_automat_resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "0ba7f70b-672c-4216-8da0-6fbba5e40275",
+		"name": "atm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddAsiakas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/asiakas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"asiakas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAsiakas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/asiakas",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"asiakas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddKortti",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "pin",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "idAsiakas",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/kortti",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"kortti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetKortti",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/kortti",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"kortti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddTili",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "saldo",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "credit",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "luottoraja",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "idKortti",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/tili",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tili"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTili",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateAsiakas",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idAsiakas",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "enimi",
+							"value": "Heppu",
+							"type": "text"
+						},
+						{
+							"key": "snimi",
+							"value": "Asiakas",
+							"type": "text"
+						},
+						{
+							"key": "osoite",
+							"value": "katu 22",
+							"type": "text"
+						},
+						{
+							"key": "puhnro",
+							"value": "12312",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/asiakas/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"asiakas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateKortti",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idKortti",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "pin",
+							"value": "5555",
+							"type": "text"
+						},
+						{
+							"key": "idAsiakas",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/kortti/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"kortti",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTili",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "saldo",
+							"value": "1200",
+							"type": "text"
+						},
+						{
+							"key": "credit",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "luottoraja",
+							"value": "600",
+							"type": "text"
+						},
+						{
+							"key": "idKortti",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/tili/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tili",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAsiakas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteKortti",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTili",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idKortti",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "pin",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

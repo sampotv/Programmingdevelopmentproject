@@ -1,0 +1,174 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema bank
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema bank
+-- -----------------------------------------------------
+create database bank;
+CREATE SCHEMA IF NOT EXISTS `bank` DEFAULT CHARACTER SET utf8 ;
+USE `bank` ;
+
+-- -----------------------------------------------------
+-- Table `bank`.`Asiakas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bank`.`Asiakas` (
+  `idAsiakas` INT NOT NULL AUTO_INCREMENT,
+  `enimi` VARCHAR(45) NOT NULL,
+  `snimi` VARCHAR(45) NOT NULL,
+  `osoite` VARCHAR(45) NOT NULL,
+  `puhnro` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idAsiakas`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bank`.`Kortti`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bank`.`Kortti` (
+  `idKortti` INT NOT NULL AUTO_INCREMENT,
+  `pin` VARCHAR(255) NOT NULL,
+  `idAsiakas` INT NOT NULL,
+  PRIMARY KEY (`idKortti`, `idAsiakas`),
+  INDEX `fk_Kortti_Asiakas1_idx` (`idAsiakas` ASC) VISIBLE,
+  CONSTRAINT `fk_Kortti_Asiakas1`
+    FOREIGN KEY (`idAsiakas`)
+    REFERENCES `bank`.`Asiakas` (`idAsiakas`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bank`.`Tili`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bank`.`Tili` (
+  `idTili` INT NOT NULL AUTO_INCREMENT,
+  `saldo` FLOAT NOT NULL,
+  `credit` TINYINT NULL,
+  `luottoraja` FLOAT NULL,
+  `idKortti` INT NOT NULL,
+  PRIMARY KEY (`idTili`, `idKortti`),
+  INDEX `fk_Tili_Kortti1_idx` (`idKortti` ASC) VISIBLE,
+  CONSTRAINT `fk_Tili_Kortti1`
+    FOREIGN KEY (`idKortti`)
+    REFERENCES `bank`.`Kortti` (`idKortti`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bank`.`Tilitapahtumat`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bank`.`Tilitapahtumat` (
+  `idTilitapahtumat` INT NOT NULL AUTO_INCREMENT,
+  `pvm` TIMESTAMP NULL,
+  `tapahtuma` VARCHAR(45) NULL,
+  `summa` FLOAT NULL,
+  `idTili` INT NOT NULL,
+  PRIMARY KEY (`idTilitapahtumat`, `idTili`),
+  INDEX `fk_Tilitapahtumat_Tili1_idx` (`idTili` ASC) VISIBLE,
+  CONSTRAINT `fk_Tilitapahtumat_Tili1`
+    FOREIGN KEY (`idTili`)
+    REFERENCES `bank`.`Tili` (`idTili`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+USE `bank`;
+DROP procedure IF EXISTS `debit_transfer`;
+
+USE `bank`;
+DROP procedure IF EXISTS `bank`.`debit_transfer`;
+;
+
+DELIMITER $$
+USE `bank`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `debit_transfer`(IN id1 INT, IN id2 INT, IN summa DOUBLE )
+BEGIN
+  DECLARE test1, test2 INT DEFAULT 0;
+  START TRANSACTION;
+  UPDATE tili SET saldo=saldo-summa WHERE idTili=id1 AND saldo>=summa;
+  SET test1=ROW_COUNT();
+  UPDATE tili SET saldo=saldo+summa WHERE idTili=id2;
+  SET test2=ROW_COUNT();
+    IF (test1 > 0 AND test2 > 0) THEN
+      COMMIT;
+      INSERT INTO tilitapahtumat(idTili,tapahtuma,summa,pvm) VALUES(id1,'nosto',summa, NOW());
+      INSERT INTO tilitapahtumat(idTili,tapahtuma,summa,pvm) VALUES(id2,'talletus',summa, NOW());
+    ELSE
+      ROLLBACK;
+  END IF;
+END$$
+
+DELIMITER ;
+;
+USE `bank`;
+DROP procedure IF EXISTS `tapahtuma`;
+
+USE `bank`;
+DROP procedure IF EXISTS `bank`.`tapahtuma`;
+;
+
+DELIMITER $$
+USE `bank`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tapahtuma`(in id int)
+BEGIN
+
+select * from tilitapahtumat where idTili=id order by pvm desc limit 10;
+END$$
+
+DELIMITER ;
+;
+
+
+USE `bank`;
+DROP procedure IF EXISTS `saldo`;
+
+USE `bank`;
+DROP procedure IF EXISTS `bank`.`saldo`;
+;
+
+DELIMITER $$
+USE `bank`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `saldo`(IN id1 INT)
+BEGIN
+
+select saldo from tili where idKortti=id1;
+END$$
+
+DELIMITER ;
+;
+
+USE `bank`;
+DROP procedure IF EXISTS `nosto`;
+
+DELIMITER $$
+USE `bank`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `nosto`(IN id1 INT, IN summa DOUBLE )
+BEGIN
+  DECLARE test1, test2 INT DEFAULT 0;
+  START TRANSACTION;
+  UPDATE tili SET saldo=saldo-summa WHERE idTili=id1 AND saldo>=summa;
+
+      COMMIT;
+      INSERT INTO tilitapahtumat(idTili,tapahtuma,summa,pvm) VALUES(id1,'nosto',summa, NOW());
+      
+      ROLLBACK;
+
+END$$
+
+DELIMITER ;
+
